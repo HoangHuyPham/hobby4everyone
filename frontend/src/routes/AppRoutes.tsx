@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router"
-import { Home } from "../pages"
+import { ProductManage, Home } from "../pages"
 
 export const AppRoutes: React.FC = () => {
     return <>
@@ -7,6 +7,11 @@ export const AppRoutes: React.FC = () => {
             {/* Public Route  */}
             <Route>
                 <Route index element={<Home/>} />
+            </Route>
+
+            {/* User Routes */}
+            <Route path="/profile">
+                <Route path="products" element={<ProductManage />} />
             </Route>
 
             {/* Private Route  */}
