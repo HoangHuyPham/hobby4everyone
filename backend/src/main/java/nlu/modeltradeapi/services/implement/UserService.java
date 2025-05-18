@@ -11,6 +11,8 @@ import nlu.modeltradeapi.services.template.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -28,6 +30,8 @@ public class UserService implements IUserService {
 
     @Override
     public User registerUser(UserRegisterRequestDTO registerRequest) {
+        System.out.println(registerRequest.getUserName());
+
         // Kiểm tra username đã tồn tại
         if (userRepository.findByUserName(registerRequest.getUserName()).isPresent()) {
             throw new RuntimeException("Username already exists");
@@ -35,6 +39,8 @@ public class UserService implements IUserService {
         if (userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
             throw new RuntimeException("Email already exists");
         }
+
+
         User user = User.builder()
                 .userName(registerRequest.getUserName())
                 .name(registerRequest.getName())
@@ -44,6 +50,10 @@ public class UserService implements IUserService {
                 .dateOfBirth(registerRequest.getDateOfBirth())
                 .createdDate(LocalDateTime.now())
                 .build();
+        System.out.println(user.getUserName()+user.getEmail()+user.getPassword()+user.getPhoneNumber()+user.getDateOfBirth());
+
+        PasswordEncoder passwordEncoder= new BCryptPasswordEncoder(10);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         User savedUser = userRepository.save(user);
 
         // Tạo OTP
@@ -83,7 +93,7 @@ public class UserService implements IUserService {
 
     @Override
     public User getUserById(String userId) {
-        return userRepository.findById(userId).orElseThrow(() ->new RuntimeException("User not found"));
+        return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     @Override

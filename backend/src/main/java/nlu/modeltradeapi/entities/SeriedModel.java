@@ -1,10 +1,8 @@
 package nlu.modeltradeapi.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import nlu.modeltradeapi.entities.embedded_id.SeriedModelId;
 
 import java.io.Serializable;
@@ -15,6 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Table(name = "seried_models")
 @Entity(name = "seried_model")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class SeriedModel implements Serializable {
     @EmbeddedId
     private SeriedModelId seriedModelId;

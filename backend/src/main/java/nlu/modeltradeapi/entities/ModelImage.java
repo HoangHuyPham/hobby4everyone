@@ -1,10 +1,8 @@
 package nlu.modeltradeapi.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
 
@@ -14,6 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Table(name = "model_images")
 @Entity(name = "model_image")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ModelImage implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

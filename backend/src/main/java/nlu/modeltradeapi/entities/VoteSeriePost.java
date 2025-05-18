@@ -23,10 +23,12 @@ public class VoteSeriePost implements Serializable {
     @ManyToOne
     @JoinColumn(name = "serie_id")
     private Serie serie;
+    @Lob
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
     @Column(name = "created_time")
-    private LocalDateTime createdTime;
+    @Builder.Default
+    private LocalDateTime createdTime = LocalDateTime.now();
     @Column(name = "expiration_time")
     private LocalDateTime expirationTime;
     @Column(name = "total_share")

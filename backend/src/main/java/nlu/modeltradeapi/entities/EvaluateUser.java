@@ -26,10 +26,12 @@ public class EvaluateUser implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @Lob
     @Column(name ="evaluate_detail")
     private String evaluateDetail;
     @Column(name ="star")
     private int star;
     @Column(name = "evaluate_date")
-    private LocalDateTime evaluateDate;
+    @Builder.Default
+    private LocalDateTime evaluateDate = LocalDateTime.now();
 }

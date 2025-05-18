@@ -11,6 +11,7 @@ spring:
           auth: true
           starttls:
             enable: true
+
   datasource:
     url: "jdbc:mysql://localhost:3306/model_trade"
     username: root
@@ -25,5 +26,10 @@ server:
   port: 8080
   servlet:
     context-path: /model_trade
+
+
+jwt:
+  signerKey: "Ns44SXXKgd2+MeKoAGqvg0xiRA+nFfpDY4b5wshQp1iwmVp2f1FzLjvC0JD6hE/e"
+
 
 

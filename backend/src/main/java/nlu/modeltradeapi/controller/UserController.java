@@ -6,7 +6,6 @@ import nlu.modeltradeapi.dtos.requestdto.user.UserRegisterRequestDTO;
 import nlu.modeltradeapi.dtos.requestdto.user.UserUpdateRequestDTO;
 import nlu.modeltradeapi.dtos.responsedto.MessageResponseDTO;
 import nlu.modeltradeapi.entities.User;
-import nlu.modeltradeapi.services.implement.UserService;
 import nlu.modeltradeapi.services.template.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +23,10 @@ public class UserController {
     @PostMapping("register")
     public ResponseEntity<MessageResponseDTO> register(@RequestBody UserRegisterRequestDTO urrd) {
         MessageResponseDTO message = MessageResponseDTO.builder().message("Không thành công").build();
+
         message.setMessage(urrd.getEmail() + message.getMessage());
         if(userService.registerUser(urrd)!= null) message.setMessage("Đăng kí thành công. Vui lòng kiểm tra email");
+
         return new ResponseEntity<>(
                 message,
                 HttpStatus.OK
@@ -36,6 +37,7 @@ public class UserController {
     public ResponseEntity<MessageResponseDTO> verifyOtp(@RequestBody OTPVerificationRequestDTO requestDTO){
         userService.verifyOTP(requestDTO);
         MessageResponseDTO message = MessageResponseDTO.builder().message("Thành công").build();
+
         message.setMessage(requestDTO.getEmail() + message.getMessage() + " xác nhận");
         return new ResponseEntity<>(
                 message,

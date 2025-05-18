@@ -1,10 +1,8 @@
 package nlu.modeltradeapi.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table(name = "model_promotion_post_comments")
 @Entity(name = "model_promotion_post_comment")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ModelPromotionPostComment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -28,8 +27,10 @@ public class ModelPromotionPostComment implements Serializable {
     private ModelPromotionPost modelPromotionPost;
     @Column(name = "parent_id")
     private String parentId;
+    @Lob
     @Column(name = "context", columnDefinition = "TEXT")
     private String context;
     @Column(name = "created_time")
-    private LocalDateTime createdTime;
+    @Builder.Default
+    private LocalDateTime createdTime = LocalDateTime.now();
 }
