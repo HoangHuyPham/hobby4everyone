@@ -1,16 +1,32 @@
-import { Route, Routes } from "react-router"
-import { Home } from "../pages"
+import { Navigate, Route, Routes } from "react-router-dom"
+import Page from "@/pages/Page"
+import Inventory from "@/pages/Inventory"
+import UploadProduct from "@/pages/UploadProduct"
+import ProtectedRoute from "@/routes/ProtectedRoute"
+import ExchangeHistory from "@/pages/ExchangeHistory"
+import Login from "@/pages/Login"
+import Product from "@/pages/Product"
+import Register from "@/pages/Register"
+import ReturnApi from "@/pages/ReturnApi"
+import Search from "@/pages/Search"
+import VerifyOtp from "@/pages/VerifyOtp"
 
 export const AppRoutes: React.FC = () => {
     return <>
         <Routes>
-            {/* Public Route  */}
-            <Route>
-                <Route index element={<Home/>} />
-            </Route>
+            <Route path="/">
+                <Route index element={<Navigate to="/home"/>} />
+                <Route path="/home" element={<Page/>} />
+                <Route path="/exchange-history" element={<ExchangeHistory/>} />
+                <Route path="/login" element={<Login/>} />
+                <Route path="/product/:id" element={<Product/>} />
+                <Route path="/register" element={<Register/>} />
+                <Route path="/return-api" element={<ReturnApi/>} />
+                <Route path="/search" element={<Search/>} />
+                <Route path="/verify-otp" element={<VerifyOtp/>} />
 
-            {/* Private Route  */}
-            <Route path="/admin">
+                <Route path="/inventory" element={<ProtectedRoute><Inventory/></ProtectedRoute>} />
+                <Route path="/uploadProduct" element={<ProtectedRoute><UploadProduct /></ProtectedRoute>} />
             </Route>
 
             <Route path="*" element={<p className="text-center font-bold text-4xl">This page is not available :(</p>}/>
