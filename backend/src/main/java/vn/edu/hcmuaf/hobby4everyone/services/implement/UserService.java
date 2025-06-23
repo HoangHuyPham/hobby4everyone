@@ -5,10 +5,12 @@ import vn.edu.hcmuaf.hobby4everyone.dtos.requestdto.user.UserRegisterRequestDTO;
 import vn.edu.hcmuaf.hobby4everyone.dtos.requestdto.user.UserUpdateRequestDTO;
 import vn.edu.hcmuaf.hobby4everyone.dtos.responsedto.user.UserBasicDTO;
 import vn.edu.hcmuaf.hobby4everyone.entities.ActiveOTPUser;
+import vn.edu.hcmuaf.hobby4everyone.entities.Cart;
 import vn.edu.hcmuaf.hobby4everyone.entities.User;
 import vn.edu.hcmuaf.hobby4everyone.entities.Wallet;
 import vn.edu.hcmuaf.hobby4everyone.exceptions.CustomException;
 import vn.edu.hcmuaf.hobby4everyone.repository.ActiveOTPUserRepository;
+import vn.edu.hcmuaf.hobby4everyone.repository.CartRepository;
 import vn.edu.hcmuaf.hobby4everyone.repository.UserRepository;
 import vn.edu.hcmuaf.hobby4everyone.repository.WalletRepository;
 import vn.edu.hcmuaf.hobby4everyone.services.template.IUserService;
@@ -35,6 +37,8 @@ public class UserService implements IUserService {
     private JavaMailSenderImpl mailSender;
     @Autowired
     private WalletRepository walletRepository;
+    @Autowired
+    private CartRepository cartRepository;
 
     private final PasswordEncoder passwordEncoder= new BCryptPasswordEncoder(10);
 
@@ -72,6 +76,11 @@ public class UserService implements IUserService {
                 .build();
         walletRepository.save(wallet);
 
+        Cart cart = Cart.builder()
+                .user(savedUser)
+                .build();
+        cartRepository.save(cart);
+    
         // Tạo OTP
         String otp = generateOTP();
         LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(5);

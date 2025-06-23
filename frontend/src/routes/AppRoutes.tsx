@@ -10,6 +10,7 @@ import Register from "@/pages/Register"
 import ReturnApi from "@/pages/ReturnApi"
 import Search from "@/pages/Search"
 import VerifyOtp from "@/pages/VerifyOtp"
+import Cart from "@/pages/Cart"
 
 export const AppRoutes: React.FC = () => {
     return <>
@@ -24,6 +25,7 @@ export const AppRoutes: React.FC = () => {
                 <Route path="/return-api" element={<ReturnApi/>} />
                 <Route path="/search" element={<Search/>} />
                 <Route path="/verify-otp" element={<VerifyOtp/>} />
+                <Route path="/cart" element={<Cart />} />
 
                 <Route path="/inventory" element={<ProtectedRoute><Inventory/></ProtectedRoute>} />
                 <Route path="/uploadProduct" element={<ProtectedRoute><UploadProduct /></ProtectedRoute>} />

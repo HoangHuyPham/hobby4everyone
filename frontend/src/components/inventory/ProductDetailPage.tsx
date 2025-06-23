@@ -1,8 +1,8 @@
-import React from "react";
-import Header from "@/layouts/navigation/Header";
 import Footer from "@/layouts/navigation/Footer";
+import Header from "@/layouts/navigation/Header";
+import Cookies from "js-cookie";
+import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
-import { useState } from "react";
 
 interface Product {
   modelId: string;
@@ -67,6 +67,34 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   const handleThumbnailClick = (image: string) => {
     setSelectedImage(image);
   };
+
+
+  const addToCart = async ()=>{
+    const token = Cookies.get("token");
+    const resp = await fetch("http://localhost:8080/model_trade/api/carts", {
+      method: 'POST',
+      body: JSON.stringify({
+        "modelId": product.modelId,
+        "isSelected": true,
+        "quantity": 1,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      mode: "cors",
+      credentials: "include",
+    })
+    const data = await resp.json()
+    if (data?.code === 200){
+      alert(`Thành công: ${data?.message}`)
+    }else{
+      alert(`Lỗi: ${data?.message}`)
+    }
+  }
+  const handleAddToCart = async () => {
+    await addToCart()
+  }
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -101,6 +129,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
           {/* Thông tin sản phẩm */}
           <div className="w-full  pl-10 lg:w-1/2">
             <h1 className="text-2xl font-bold">{product.name}</h1>
+            <p>Số lượng: {product.quantity}</p>
             <p className="text-red-600 text-xl mt-2">
               {formatPrice(product.price)}
             </p>
@@ -109,7 +138,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               <button className="bg-green-600 text-white py-2 px-4 cursor-pointer rounded-lg hover:bg-green-700 text-xl">
                 Đặt hàng
               </button>
-              <button className="bg-blue-600 text-white py-2 cursor-pointer px-4 rounded-lg hover:bg-blue-700 flex items-center text-xl">
+              <button onClick={handleAddToCart} className="bg-blue-600 text-white py-2 cursor-pointer px-4 rounded-lg hover:bg-blue-700 flex items-center text-xl">
                 <FaShoppingCart className="mr-2" /> Thêm vào giỏ
               </button>
             </div>
