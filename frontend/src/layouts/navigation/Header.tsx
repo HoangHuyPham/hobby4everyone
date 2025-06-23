@@ -553,11 +553,11 @@ const Header: React.FC<HeaderProps> = ({ openModal }) => {
               {t("help")}
             </Link>
             <Link
-              to="/wishlist"
+              to="/cart"
               // href="/wishlist"
               className="text-sm font-medium whitespace-nowrap"
             >
-              {t("wishlist")}
+              {t("cart")}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4 inline-block ml-1"
@@ -565,12 +565,12 @@ const Header: React.FC<HeaderProps> = ({ openModal }) => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path
+                {/* <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
                   d="M19 9l-7 7-7-7"
-                />
+                /> */}
               </svg>
             </Link>
           </div>
