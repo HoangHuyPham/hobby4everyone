@@ -1,11 +1,14 @@
-import { BrowserRouter } from 'react-router'
-import { AppRoutes } from '@routes'
+import { BrowserRouter } from 'react-router-dom'
+import { AppRoutes } from '@/routes'
+import ClientWrapper from '@/components/ClientWrapper';
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <AppRoutes />
+        <ClientWrapper>
+          <AppRoutes />
+        </ClientWrapper>
       </BrowserRouter>
     </>
   )

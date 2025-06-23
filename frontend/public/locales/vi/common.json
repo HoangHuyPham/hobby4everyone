@@ -1,0 +1,23 @@
+{
+  "exchange": "Trao đổi",
+  "exchangeRequest": "Yêu cầu trao đổi",
+  "pendingResponse": "Yêu cầu trao đổi cần phản hồi",
+  "rejectedRequest": "Yêu cầu trao đổi bị từ chối",
+  "scheduleRequest": "Yêu cầu lịch hẹn",
+  "schedule": "Lịch hẹn",
+  "inProgress": "Cuộc hẹn đang diễn ra",
+  "deliveryStatus": "Trạng thái giao hàng",
+  "history": "Lịch sử trao đổi",
+  "login": "Đăng nhập",
+  "logout": "Đăng xuất",
+  "cart": "Giỏ hàng",
+  "chat": "Trò chuyện",
+  "inventory": "Kho hàng",
+  "post": "Bài viết",
+  "notification": "Thông báo",
+  "newsletter": "Tham gia bản tin",
+  "how_to": "Hướng dẫn sử dụng",
+  "warehouse": "Kho riêng",
+  "help": "Trung tâm trợ giúp",
+  "wishlist": "Danh sách mong muốn"
+}
