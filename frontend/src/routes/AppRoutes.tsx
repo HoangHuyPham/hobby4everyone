@@ -11,6 +11,7 @@ import ReturnApi from "@/pages/ReturnApi"
 import Search from "@/pages/Search"
 import VerifyOtp from "@/pages/VerifyOtp"
 import Cart from "@/pages/Cart"
+import RevenueStatistic from "@/pages/RevenueStatistic"
 
 export const AppRoutes: React.FC = () => {
     return <>
@@ -26,6 +27,8 @@ export const AppRoutes: React.FC = () => {
                 <Route path="/search" element={<Search/>} />
                 <Route path="/verify-otp" element={<VerifyOtp/>} />
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/statistics/revenue" element={<RevenueStatistic />} />
+
 
                 <Route path="/inventory" element={<ProtectedRoute><Inventory/></ProtectedRoute>} />
                 <Route path="/uploadProduct" element={<ProtectedRoute><UploadProduct /></ProtectedRoute>} />
