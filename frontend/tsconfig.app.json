@@ -25,20 +25,7 @@
     /* Alias by HuyPham*/
     "baseUrl": ".",
     "paths": {
-      "@styles/*": ["./src/styles/*"],
-      "@assets/*": ["./src/assets/*"],
-      "@components/*": ["./src/components/*"],
-      "@components": ["./src/components"],
-      "@contexts/*": ["./src/contexts/*"],
-      "@contexts": ["./src/contexts"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@hooks": ["./src/hooks"],
-      "@pages/*": ["./src/pages/*"],
-      "@pages": ["./src/pages"],
-      "@routes/*": ["./src/routes/*"],
-      "@routes": ["./src/routes"],
-      "@layouts/*": ["./src/layouts/*"],
-      "@layouts": ["./src/layouts"],
+      "@/*": ["./src/*"],
     },
   },
   "include": ["src"]
