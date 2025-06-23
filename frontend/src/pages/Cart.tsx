@@ -13,6 +13,7 @@ interface ICartItem {
   id: string;
   model: IModel;
   selected: boolean;
+  quantity: number;
 }
 
 interface IModel {
@@ -103,25 +104,28 @@ const Cart = () => {
       } else {
         return item
       }
-    }).filter(v=>v.model.quantity > 0)
+    }).filter(v => v.model.quantity > 0)
 
-    setCart({ ...cart, cartItems: newItems })
+    setCart(prev => {
+      if (!prev) return prev;
+      return { ...prev, cartItems: [...newItems] };
+    })
   }
 
   const changeQuantity = async (cartItem: ICartItem, diff: number) => {
     if (!cart) return;
 
-    const newQuantity = cartItem.model.quantity + diff;
+    const newQuantity = cartItem.quantity + diff;
     const result = await updateCartItemApi(cartItem.model.modelId, diff)
 
     if (result) {
-      updateCartItemLocal({ ...cartItem, model: { ...cartItem.model, quantity: newQuantity } } as ICartItem)
+      updateCartItemLocal({ ...cartItem, quantity: newQuantity } as ICartItem)
     }
   };
 
   const total = cart?.cartItems.reduce(
     (sum, item) =>
-      item.selected ? sum + item.model.price * item.model.quantity : sum,
+      item.selected ? sum + item.model.price * item?.quantity : sum,
     0
   ) ?? 0;
 
@@ -168,7 +172,7 @@ const Cart = () => {
                         >
                           −
                         </button>
-                        <span>{item.model.quantity}</span>
+                        <span>{item.quantity}</span>
                         <button
                           className="w-8 h-8 bg-gray-200 text-xl rounded"
                           onClick={() => changeQuantity(item, 1)}
@@ -182,9 +186,9 @@ const Cart = () => {
 
                 <div className="text-right">
                   <p className="text-lg font-bold text-green-600">
-                    {(item.model.price * item.model.quantity).toLocaleString()} đ
+                    {(item.model.price * item.quantity).toLocaleString()} đ
                   </p>
-                  <button onClick={() => changeQuantity(item, -item.model.quantity)} className="cursor-pointer text-sm text-red-500 hover:underline mt-2">
+                  <button onClick={() => changeQuantity(item, -item.quantity)} className="cursor-pointer text-sm text-red-500 hover:underline mt-2">
                     Xóa
                   </button>
                 </div>

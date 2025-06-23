@@ -15,6 +15,7 @@ public class CartDTO {
     public static class CartItemDTO {
         private String id;
         private boolean isSelected;
+        private int quantity;
         private ModelDTO model;
     }
 
