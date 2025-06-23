@@ -70,4 +70,8 @@ public class User implements Serializable {
     List<Model> models;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     List<AddressOwner> addressOwners;
+
+    public void setIsDelete(boolean b) {
+        this.isDelete = b;
+    }
 }

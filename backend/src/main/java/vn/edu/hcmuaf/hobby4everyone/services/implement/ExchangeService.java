@@ -152,4 +152,10 @@ public class ExchangeService implements IExchangeService {
         var userValue = userRepository.findByUserName(userTrue.getUsername()).orElseThrow(() -> new RuntimeException("User không tồn tại"));
         return exchangeRepository.findAllRelatedToUser(userValue.getUserId());
     }
+
+    @Override
+    public List<Exchange> getExchangesByUserId(String userId) {
+        var userValue = userRepository.findByUserId(userId).orElseThrow(() -> new RuntimeException("User không tồn tại"));
+        return exchangeRepository.findAllRelatedToUser(userValue.getUserId());
+    }
 }

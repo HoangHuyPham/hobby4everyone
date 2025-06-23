@@ -80,7 +80,7 @@ public class UserService implements IUserService {
                 .user(savedUser)
                 .build();
         cartRepository.save(cart);
-    
+
         // Tạo OTP
         String otp = generateOTP();
         LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(5);
@@ -184,5 +184,18 @@ public class UserService implements IUserService {
                 .active(user.isActive())
                 .isDelete(user.isDelete())
                 .build();
+    }
+
+    @Override
+    public User deactivateUser(String userId) throws CustomException {
+        // Tìm người dùng theo userId
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException("User not found"));
+
+        // Cập nhật isDelete thành true để "vô hiệu hóa" người dùng
+        user.setIsDelete(!user.isDelete());
+
+        // Lưu lại người dùng đã cập nhật
+        return userRepository.save(user);
     }
 }

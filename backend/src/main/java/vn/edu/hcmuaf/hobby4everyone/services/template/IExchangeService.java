@@ -12,4 +12,5 @@ public interface IExchangeService {
     public String handleReturnDTO(PayVNPResponseDTO payVNPResponseDTO);
     public String VNPPay(String exchangeId, String clientIp) throws UnsupportedEncodingException;
     public List<Exchange> getExchangesByUser();
+    public List<Exchange> getExchangesByUserId(String userId);
 }
