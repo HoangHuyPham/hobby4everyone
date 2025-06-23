@@ -61,7 +61,7 @@ const HomeSideRight = () => {
                 </Link>
                 <Link 
                 // href="/exchange-history"
-                to="/inventory"
+                to="/exchange-history"
                 >
                   <div className="my-5">{t("transactionHistory")}</div>
                 </Link>

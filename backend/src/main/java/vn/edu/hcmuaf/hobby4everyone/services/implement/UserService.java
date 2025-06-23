@@ -5,10 +5,12 @@ import vn.edu.hcmuaf.hobby4everyone.dtos.requestdto.user.UserRegisterRequestDTO;
 import vn.edu.hcmuaf.hobby4everyone.dtos.requestdto.user.UserUpdateRequestDTO;
 import vn.edu.hcmuaf.hobby4everyone.dtos.responsedto.user.UserBasicDTO;
 import vn.edu.hcmuaf.hobby4everyone.entities.ActiveOTPUser;
+import vn.edu.hcmuaf.hobby4everyone.entities.Cart;
 import vn.edu.hcmuaf.hobby4everyone.entities.User;
 import vn.edu.hcmuaf.hobby4everyone.entities.Wallet;
 import vn.edu.hcmuaf.hobby4everyone.exceptions.CustomException;
 import vn.edu.hcmuaf.hobby4everyone.repository.ActiveOTPUserRepository;
+import vn.edu.hcmuaf.hobby4everyone.repository.CartRepository;
 import vn.edu.hcmuaf.hobby4everyone.repository.UserRepository;
 import vn.edu.hcmuaf.hobby4everyone.repository.WalletRepository;
 import vn.edu.hcmuaf.hobby4everyone.services.template.IUserService;
@@ -35,6 +37,8 @@ public class UserService implements IUserService {
     private JavaMailSenderImpl mailSender;
     @Autowired
     private WalletRepository walletRepository;
+    @Autowired
+    private CartRepository cartRepository;
 
     private final PasswordEncoder passwordEncoder= new BCryptPasswordEncoder(10);
 
@@ -71,6 +75,11 @@ public class UserService implements IUserService {
                 .spend(0)
                 .build();
         walletRepository.save(wallet);
+
+        Cart cart = Cart.builder()
+                .user(savedUser)
+                .build();
+        cartRepository.save(cart);
 
         // Tạo OTP
         String otp = generateOTP();
@@ -175,5 +184,18 @@ public class UserService implements IUserService {
                 .active(user.isActive())
                 .isDelete(user.isDelete())
                 .build();
+    }
+
+    @Override
+    public User deactivateUser(String userId) throws CustomException {
+        // Tìm người dùng theo userId
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException("User not found"));
+
+        // Cập nhật isDelete thành true để "vô hiệu hóa" người dùng
+        user.setIsDelete(!user.isDelete());
+
+        // Lưu lại người dùng đã cập nhật
+        return userRepository.save(user);
     }
 }

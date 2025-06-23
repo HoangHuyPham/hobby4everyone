@@ -127,6 +127,30 @@ public class ModelService implements IModelService {
         return ""+price;
     }
 
+    @Override
+    public List<ModelResponseDTO> getAllModelByUserId(String userId) {
+        var userValue = userRepository.findByUserId(userId).orElseThrow(() -> new RuntimeException("User không tồn tại"));
+        List<Model> lists = modelRepository.findByUser(userValue);
+        List<ModelResponseDTO> result = new ArrayList<>();
+        for (Model m : lists) {
+            result.add(
+                    ModelResponseDTO.builder()
+                            .modelId(m.getModelId())
+                            .name(m.getName())
+                            .description(m.getDescription())
+                            .price(m.getPrice())
+                            .quantity(m.getQuantity())
+                            .see(m.isSee())
+                            .isDelete(m.isDelete())
+                            .images(m.getImageLinks())
+                            .build()
+
+            );
+
+        }
+        return result;
+    }
+
     //    private ModelResponseDTO convertToDTO(Model model) {
 //        return ModelResponseDTO.builder()
 //                .modelId(model.getModelId())

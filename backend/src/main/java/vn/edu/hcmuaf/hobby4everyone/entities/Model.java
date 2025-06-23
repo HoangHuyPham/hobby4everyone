@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.Builder.Default;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
@@ -46,7 +47,11 @@ public class Model implements Serializable {
     @JsonManagedReference
     List<ModelImage> images;
 
-    public List<String> getImageLinks(){
+    @OneToMany(mappedBy = "model", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Default
+    private List<CartItem> cartItems = new ArrayList<>();
+
+    public List<String> getImageLinks() {
         List<String> result = new ArrayList<>();
         for (ModelImage mi : images) {
             result.add(mi.getImage().getUrl());

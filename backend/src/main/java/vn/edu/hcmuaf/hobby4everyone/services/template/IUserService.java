@@ -17,5 +17,6 @@ public interface IUserService {
     public void deleteUser(String userId) throws CustomException;
     void verifyOTP(OTPVerificationRequestDTO request);
     public UserBasicDTO getUser();
+    public User deactivateUser(String userId) throws CustomException;
 
 }

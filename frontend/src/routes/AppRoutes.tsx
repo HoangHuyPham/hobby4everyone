@@ -12,6 +12,7 @@ import Search from "@/pages/Search"
 import VerifyOtp from "@/pages/VerifyOtp"
 import Admin from "@/components/Admin/Admin.tsx";
 import AdminRoute from "@/routes/AdminRoute.tsx";
+import Cart from "@/pages/Cart"
 
 export const AppRoutes: React.FC = () => {
     return <>
@@ -26,6 +27,7 @@ export const AppRoutes: React.FC = () => {
                 <Route path="/return-api" element={<ReturnApi/>} />
                 <Route path="/search" element={<Search/>} />
                 <Route path="/verify-otp" element={<VerifyOtp/>} />
+                <Route path="/cart" element={<Cart />} />
 
                 <Route path="/inventory" element={<ProtectedRoute><Inventory/></ProtectedRoute>} />
                 <Route path="/uploadProduct" element={<ProtectedRoute><UploadProduct /></ProtectedRoute>} />
