@@ -222,7 +222,7 @@
 import { BsChatDots } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineNotifications } from "react-icons/md";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 // import Link from "next/link";
 // import Image from "next/image";
 import CategoryMenu from "./CategoryMenu";
@@ -233,7 +233,8 @@ import { MdOutlineInventory2 } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import { MdOutlineBookmarkAdd } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
-
+import { useNotification } from "@/hooks";
+import { INotification } from "@/contexts/NotificationContext";
 interface HeaderProps {
   openModal?: () => void;
 }
@@ -245,7 +246,11 @@ const Header: React.FC<HeaderProps> = ({ openModal }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [language, setLanguage] = useState("vi"); // Ngôn ngữ mặc định là 'vi'
   const navigate = useNavigate()
-  console.log("Header mounted in router context");
+  const { notifications } = useNotification()
+
+  const areAllNotificationsRead = useMemo(() => {
+    return notifications.every(notification => notification.read);
+  }, [notifications]);
 
   useEffect(() => {
     const token = document.cookie
@@ -480,7 +485,7 @@ const Header: React.FC<HeaderProps> = ({ openModal }) => {
                 <Link
                   // href="/notification"
                   to="/notification"
-                  className=" hidden md:flex items-center mx-1  hover:text-gray-600"
+                  className={`hidden md:flex items-center mx-1  hover:text-gray-600 ${!areAllNotificationsRead ? "text-red-600 animate-bounce" : ""}`}
                 >
                   <div className="flex h-auto w-fit items-center">
                     <MdOutlineNotifications className="text-2xl mr-1" />

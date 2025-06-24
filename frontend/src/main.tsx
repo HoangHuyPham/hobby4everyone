@@ -2,6 +2,7 @@ import { createRoot } from 'react-dom/client'
 import '@/styles/index.css'
 import App from './App'
 import { Slide, ToastContainer } from 'react-toastify'
+import { NotificationProvider } from './contexts/NotificationContext'
 
 createRoot(document.getElementById('root')!).render(
   <>
@@ -18,6 +19,8 @@ createRoot(document.getElementById('root')!).render(
       theme="light"
       transition={Slide}
     />
-    <App />
+    <NotificationProvider>
+      <App />
+    </NotificationProvider>
   </>
 )

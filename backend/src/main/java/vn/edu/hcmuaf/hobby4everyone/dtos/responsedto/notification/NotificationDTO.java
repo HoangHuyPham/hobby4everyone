@@ -10,6 +10,6 @@ public class NotificationDTO {
     private String title;
     private String content;
     private boolean isRead;
-    private UserBasicDTO user;
+    private UserBasicDTO target;
     private LocalDateTime createdAt;
 }
