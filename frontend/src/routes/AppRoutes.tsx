@@ -10,6 +10,8 @@ import Register from "@/pages/Register"
 import ReturnApi from "@/pages/ReturnApi"
 import Search from "@/pages/Search"
 import VerifyOtp from "@/pages/VerifyOtp"
+import Admin from "@/components/Admin/Admin.tsx";
+import AdminRoute from "@/routes/AdminRoute.tsx";
 import Cart from "@/pages/Cart"
 
 export const AppRoutes: React.FC = () => {
@@ -29,6 +31,8 @@ export const AppRoutes: React.FC = () => {
 
                 <Route path="/inventory" element={<ProtectedRoute><Inventory/></ProtectedRoute>} />
                 <Route path="/uploadProduct" element={<ProtectedRoute><UploadProduct /></ProtectedRoute>} />
+
+                <Route path="/admin" element={<AdminRoute><Admin/></AdminRoute>} />
             </Route>
 
             <Route path="*" element={<p className="text-center font-bold text-4xl">This page is not available :(</p>}/>
