@@ -38,7 +38,6 @@ const UserManagement: React.FC<Props> = ({ onViewProducts, onViewExchangeHistory
             });
 
             if (!response.ok) throw new Error("Không thể tải dữ liệu người dùng");
-
             const data = await response.json();
             setUsers(data.result);
             setFilteredUsers(data.result);

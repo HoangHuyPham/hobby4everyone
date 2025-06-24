@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.hobby4everyone.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -69,10 +70,13 @@ public class User implements Serializable {
     private boolean isDelete = false;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
+    @JsonIgnore
     List<Model> models;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     List<AddressOwner> addressOwners;
     @Default
     @OneToMany(mappedBy = "target", cascade = CascadeType.ALL, orphanRemoval=true)
+    @JsonIgnore
     List<Notification> notifications = new ArrayList<>();
 }
