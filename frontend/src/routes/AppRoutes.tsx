@@ -23,7 +23,7 @@ export const AppRoutes: React.FC = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/product/:id" element={<Product />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/return-api" element={<ReturnApi />} />
+                <Route path="/return-api/:status" element={<ReturnApi />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/verify-otp" element={<VerifyOtp />} />
 

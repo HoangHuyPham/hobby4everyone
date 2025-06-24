@@ -67,7 +67,7 @@ public class ExchangeController {
                 .paySecureHash(params.get("vnp_SecureHash"))
                 .build();
         String mess = exchangeService.handleReturnDTO(payVNPResponseDTO);
-        String redirectUrl = "http://localhost:5173/return-api?status=" + (mess.contains("Success") ? "Success" : "Fail");
+        String redirectUrl = "http://localhost:5173/return-api/" + (mess.contains("Success") ? "Success" : "Fail");
         return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(redirectUrl)).build();
     }
 
