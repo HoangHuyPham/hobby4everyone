@@ -42,6 +42,7 @@ public class SecurityConfig {
                                 "/api/model/**",
                                 "/api/exchange/**"
                         ).authenticated()
+                        .requestMatchers("/ws/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess

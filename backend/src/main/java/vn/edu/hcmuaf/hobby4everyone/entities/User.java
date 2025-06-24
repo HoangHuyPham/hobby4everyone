@@ -5,12 +5,14 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import lombok.*;
+import lombok.Builder.Default;
 import lombok.experimental.FieldDefaults;
 import vn.edu.hcmuaf.hobby4everyone.constant.UserRole;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -70,4 +72,7 @@ public class User implements Serializable {
     List<Model> models;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     List<AddressOwner> addressOwners;
+    @Default
+    @OneToMany(mappedBy = "target", cascade = CascadeType.ALL, orphanRemoval=true)
+    List<Notification> notifications = new ArrayList<>();
 }
