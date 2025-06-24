@@ -21,6 +21,7 @@ import vn.edu.hcmuaf.hobby4everyone.entities.Model;
 import vn.edu.hcmuaf.hobby4everyone.repository.CartItemRepository;
 import vn.edu.hcmuaf.hobby4everyone.repository.CartRepository;
 import vn.edu.hcmuaf.hobby4everyone.repository.ModelRepository;
+import vn.edu.hcmuaf.hobby4everyone.services.template.INotificationService;
 import vn.edu.hcmuaf.hobby4everyone.services.template.IUserService;
 
 @RestController
@@ -40,6 +41,9 @@ public class CartController {
 
         @Autowired
         private ModelMapper modelMapper;
+
+        @Autowired
+        private INotificationService notificationService;
 
         @GetMapping(value = "self", produces = MediaType.APPLICATION_JSON_VALUE)
         public ApiResponse<?> getSelf() {
@@ -123,6 +127,8 @@ public class CartController {
                         existCart.getCartItems().add(newCartItem);
                         repoCart.save(existCart);
                         CartDTO cartDTO = modelMapper.map(existCart, CartDTO.class);
+                        notificationService.addNotification("Nofication", "Bạn đã thêm sản phẩm: "+existModel.getName()+" vào giỏ hàng, số lượng: "+dto.getQuantity(), userService.getUserById(userBasic.getUserId()));
+                        notificationService.notifyUser(userService.getUserById(userBasic.getUserId()), "update");
                         return ApiResponse.builder()
                                         .code(HttpStatus.OK.value())
                                         .result(cartDTO)

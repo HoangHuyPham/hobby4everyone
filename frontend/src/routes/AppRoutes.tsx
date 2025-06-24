@@ -12,6 +12,7 @@ import Search from "@/pages/Search"
 import VerifyOtp from "@/pages/VerifyOtp"
 import Cart from "@/pages/Cart"
 import RevenueStatistic from "@/pages/RevenueStatistic"
+import Notification from "@/pages/Notification"
 
 export const AppRoutes: React.FC = () => {
     return <>
@@ -29,12 +30,13 @@ export const AppRoutes: React.FC = () => {
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/statistics/revenue" element={<RevenueStatistic />} />
 
-
-                <Route path="/inventory" element={<ProtectedRoute><Inventory/></ProtectedRoute>} />
+                <Route path="/notification" element={<ProtectedRoute><Notification /></ProtectedRoute>} />
+                <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+                <Route path="/inventory" element={<ProtectedRoute><Inventory /></ProtectedRoute>} />
                 <Route path="/uploadProduct" element={<ProtectedRoute><UploadProduct /></ProtectedRoute>} />
             </Route>
 
-            <Route path="*" element={<p className="text-center font-bold text-4xl">This page is not available :(</p>}/>
+            <Route path="*" element={<p className="text-center font-bold text-4xl">This page is not available :(</p>} />
         </Routes>
     </>
 }
