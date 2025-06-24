@@ -15,4 +15,5 @@ public interface IModelService {
     public ModelResponseDTO getModelById(String id);
     public String getPriceByModelId(String modelId);
     public List<ModelResponseDTO> getAllModelByUserId(String userId);
+    public boolean deleteModelById(String modelId);
 }

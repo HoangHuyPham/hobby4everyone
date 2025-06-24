@@ -14,4 +14,5 @@ public interface ModelRepository extends JpaRepository<Model, String> {
     List<Model> findByUser(User user);
     @Query("SELECT m.price FROM model m WHERE m.modelId = :id")
     Double getPriceByModelId(@Param("id") String id);
+    Boolean removeModelByModelId(String modelId);
 }
