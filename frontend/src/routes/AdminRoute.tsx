@@ -41,8 +41,8 @@ const AdminRoute: React.FC<Props> = ({ children }) => {
                 }
             } catch (error) {
                 // Nếu có lỗi xảy ra (ví dụ, không thể gọi API), chuyển hướng về login
-                console.error(error);
-                navigate("/login");
+                console.error("error: " + error);
+                navigate("/");
             } finally {
                 setLoading(false);
             }

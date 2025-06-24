@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaArrowLeft, FaEye, FaHeart, FaSearch, FaFilter } from "react-icons/fa";
+import { FaArrowLeft, FaEye, FaHeart, FaSearch, FaFilter, FaTrashAlt } from "react-icons/fa";
 import Cookies from "js-cookie";
 
 interface Model {
@@ -82,6 +82,35 @@ const ProductManagement: React.FC<Props> = ({ userId, userName, goBack }) => {
         setFilteredModels(filtered);
     }, [models, searchTerm, statusFilter]);
 
+    const handleDeleteProduct = async (modelId: string) => {
+        const token = Cookies.get("token");
+        if (!token) {
+            alert("Bạn phải đăng nhập để thực hiện hành động này.");
+            return;
+        }
+
+        const confirmation = window.confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+        if (!confirmation) return;
+
+        try {
+            const response = await fetch(`http://localhost:8080/model_trade/api/admin/deleteModel/${modelId}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (!response.ok) throw new Error("Không thể xóa sản phẩm");
+
+            const data = await response.json();
+            alert(data.message); // Thông báo khi xóa thành công
+            fetchModels(); // Tải lại danh sách sản phẩm
+        } catch (error) {
+            alert(error instanceof Error ? error.message : "Lỗi không xác định khi xóa sản phẩm");
+        }
+    };
+
     if (loading) {
         return (
             <div className="flex items-center justify-center h-64">
@@ -150,26 +179,6 @@ const ProductManagement: React.FC<Props> = ({ userId, userName, goBack }) => {
                         <option value="active">Đang bán</option>
                         <option value="deleted">Đã xóa</option>
                     </select>
-                </div>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="bg-white rounded-lg p-4 border border-gray-200">
-                    <div className="text-2xl font-bold text-gray-900">{models.length}</div>
-                    <div className="text-sm text-gray-600">Tổng sản phẩm</div>
-                </div>
-                <div className="bg-white rounded-lg p-4 border border-gray-200">
-                    <div className="text-2xl font-bold text-green-600">{models.filter(m => !m.delete).length}</div>
-                    <div className="text-sm text-gray-600">Đang bán</div>
-                </div>
-                <div className="bg-white rounded-lg p-4 border border-gray-200">
-                    <div className="text-2xl font-bold text-blue-600">{models.reduce((sum, m) => sum + m.see, 0)}</div>
-                    <div className="text-sm text-gray-600">Tổng lượt xem</div>
-                </div>
-                <div className="bg-white rounded-lg p-4 border border-gray-200">
-                    <div className="text-2xl font-bold text-red-600">{models.reduce((sum, m) => sum + (m.like || 0), 0)}</div>
-                    <div className="text-sm text-gray-600">Tổng lượt thích</div>
                 </div>
             </div>
 
