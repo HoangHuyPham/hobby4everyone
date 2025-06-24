@@ -193,7 +193,7 @@ public class UserService implements IUserService {
                 .orElseThrow(() -> new CustomException("User not found"));
 
         // Cập nhật isDelete thành true để "vô hiệu hóa" người dùng
-        user.setIsDelete(!user.isDelete());
+        user.setDelete(!user.isDelete());
 
         // Lưu lại người dùng đã cập nhật
         return userRepository.save(user);

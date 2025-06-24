@@ -51,4 +51,9 @@ public class AdminController {
                 .result(list)
                 .build();
     }
+
+    @DeleteMapping("deleteModelById/{modelId}")
+    public ApiResponse<Boolean> deleteModelById(@PathVariable("modelId") String id) {
+        return ApiResponse.<Boolean>builder().message("Xóa sản phẩm thành công").result(modelService.deleteModelById(id)).build();
+    }
 }

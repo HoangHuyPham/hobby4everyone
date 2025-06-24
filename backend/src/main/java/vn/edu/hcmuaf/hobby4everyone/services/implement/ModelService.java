@@ -151,6 +151,11 @@ public class ModelService implements IModelService {
         return result;
     }
 
+    @Override
+    public boolean deleteModelById(String modelId) {
+        return modelRepository.removeModelByModelId(modelId);
+    }
+
     //    private ModelResponseDTO convertToDTO(Model model) {
 //        return ModelResponseDTO.builder()
 //                .modelId(model.getModelId())
