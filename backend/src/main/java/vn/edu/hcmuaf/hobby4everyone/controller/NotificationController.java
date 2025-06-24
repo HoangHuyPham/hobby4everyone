@@ -45,7 +45,7 @@ public class NotificationController {
                                 .build();
         }
 
-        @PatchMapping("/{id}/mark-read")
+        @PatchMapping("/{notificationId}/mark-read")
         public ApiResponse<?> markRead(@PathVariable String notificationId) {
                 UserBasicDTO userBasic = userService.getUser();
 

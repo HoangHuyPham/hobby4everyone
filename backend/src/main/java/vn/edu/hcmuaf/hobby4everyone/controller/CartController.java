@@ -127,8 +127,8 @@ public class CartController {
                         existCart.getCartItems().add(newCartItem);
                         repoCart.save(existCart);
                         CartDTO cartDTO = modelMapper.map(existCart, CartDTO.class);
-                        notificationService.addNotification("Nofication", "Bạn đã thêm sản phẩm: "+existModel.getName()+", số lượng: "+dto.getQuantity(), userService.getUserById(userBasic.getUserId()));
-                        notificationService.notifyUser(userService.getUserById(userBasic.getUserId()), "Giỏ hàng vừa được cập nhật!");
+                        notificationService.addNotification("Nofication", "Bạn đã thêm sản phẩm: "+existModel.getName()+" vào giỏ hàng, số lượng: "+dto.getQuantity(), userService.getUserById(userBasic.getUserId()));
+                        notificationService.notifyUser(userService.getUserById(userBasic.getUserId()), "update");
                         return ApiResponse.builder()
                                         .code(HttpStatus.OK.value())
                                         .result(cartDTO)
