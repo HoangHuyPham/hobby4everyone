@@ -15,7 +15,7 @@ public interface PayMapper {
     Pay toEntity(PayVNPResponseDTO dto);
 
     @Named("stringToLocalDateTime")
-    static LocalDateTime stringToLocalDateTime(String dateStr) {
+    public static LocalDateTime stringToLocalDateTime(String dateStr) {
         if (dateStr == null || dateStr.isBlank()) return null;
         return LocalDateTime.parse(dateStr, FORMATTER);
     }
@@ -25,7 +25,7 @@ public interface PayMapper {
     PayVNPResponseDTO toDto(Pay entity);
 
     @Named("localDateTimeToString")
-    static String localDateTimeToString(LocalDateTime date) {
+    public static String localDateTimeToString(LocalDateTime date) {
         if (date == null) return null;
         return date.format(FORMATTER);
     }

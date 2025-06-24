@@ -3,6 +3,7 @@ import Header from "@/layouts/navigation/Header";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
+import ExchangePopup from "../home/ExchangePopup";
 
 interface Product {
   modelId: string;
@@ -23,13 +24,29 @@ interface Product {
 
 interface ProductDetailPageProps {
   product: Product;
-  token: string | null;
 }
 
+
+
+
 const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
-  product,
-  token,
+  product
 }) => {
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedModelId, setSelectedModelId] = useState("");
+  const [selectedPayAmount, setSelectedPayAmount] = useState("");
+
+  // Hàm gọi exchange
+  const handleExchange = async (postId: String) => {
+    try {
+      setSelectedModelId(product.modelId)
+      setSelectedPayAmount(product.price.toString())
+      setShowPopup(true);
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
   // Hàm định dạng giá thủ công (dùng dấu chấm cho locale tiếng Việt)
   const formatPrice = (price: number) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " đ";
@@ -69,7 +86,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   };
 
 
-  const addToCart = async ()=>{
+  const addToCart = async () => {
     const token = Cookies.get("token");
     const resp = await fetch("http://localhost:8080/model_trade/api/carts", {
       method: 'POST',
@@ -86,9 +103,9 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
       credentials: "include",
     })
     const data = await resp.json()
-    if (data?.code === 200){
+    if (data?.code === 200) {
       alert(`Thành công: ${data?.message}`)
-    }else{
+    } else {
       alert(`Lỗi: ${data?.message}`)
     }
   }
@@ -135,8 +152,11 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             </p>
 
             <div className="mt-6 flex space-x-4">
-              <button className="bg-green-600 text-white py-2 px-4 cursor-pointer rounded-lg hover:bg-green-700 text-xl">
+              <button className="bg-green-600 text-white py-2 px-4 cursor-pointer rounded-lg hover:bg-green-700 text-xl"
+                onClick={() => handleExchange(product.modelId)}
+              >
                 Đặt hàng
+
               </button>
               <button onClick={handleAddToCart} className="bg-blue-600 text-white py-2 cursor-pointer px-4 rounded-lg hover:bg-blue-700 flex items-center text-xl">
                 <FaShoppingCart className="mr-2" /> Thêm vào giỏ
@@ -193,6 +213,13 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
           </div>
         </div>
       </div>
+      {showPopup && (
+        <ExchangePopup
+          modelId={selectedModelId}
+          payAmount={selectedPayAmount}
+          onClose={() => setShowPopup(false)}
+        />
+      )}
       <Footer />
     </div>
   );
