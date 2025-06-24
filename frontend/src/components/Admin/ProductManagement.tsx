@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaArrowLeft, FaEye, FaHeart, FaSearch, FaFilter, FaTrashAlt } from "react-icons/fa";
+import { FaArrowLeft, FaEye, FaHeart, FaSearch, FaFilter } from "react-icons/fa";
 import Cookies from "js-cookie";
 
 interface Model {
@@ -82,34 +82,7 @@ const ProductManagement: React.FC<Props> = ({ userId, userName, goBack }) => {
         setFilteredModels(filtered);
     }, [models, searchTerm, statusFilter]);
 
-    const handleDeleteProduct = async (modelId: string) => {
-        const token = Cookies.get("token");
-        if (!token) {
-            alert("Bạn phải đăng nhập để thực hiện hành động này.");
-            return;
-        }
 
-        const confirmation = window.confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
-        if (!confirmation) return;
-
-        try {
-            const response = await fetch(`http://localhost:8080/model_trade/api/admin/deleteModel/${modelId}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            if (!response.ok) throw new Error("Không thể xóa sản phẩm");
-
-            const data = await response.json();
-            alert(data.message); // Thông báo khi xóa thành công
-            fetchModels(); // Tải lại danh sách sản phẩm
-        } catch (error) {
-            alert(error instanceof Error ? error.message : "Lỗi không xác định khi xóa sản phẩm");
-        }
-    };
 
     if (loading) {
         return (

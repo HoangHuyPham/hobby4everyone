@@ -13,29 +13,31 @@ import VerifyOtp from "@/pages/VerifyOtp"
 import Admin from "@/components/Admin/Admin.tsx";
 import AdminRoute from "@/routes/AdminRoute.tsx";
 import Cart from "@/pages/Cart"
+import Notification from "@/pages/Notification"
 
 export const AppRoutes: React.FC = () => {
     return <>
         <Routes>
             <Route path="/">
-                <Route index element={<Navigate to="/home"/>} />
-                <Route path="/home" element={<Page/>} />
-                <Route path="/exchange-history" element={<ExchangeHistory/>} />
-                <Route path="/login" element={<Login/>} />
-                <Route path="/product/:id" element={<Product/>} />
-                <Route path="/register" element={<Register/>} />
-                <Route path="/return-api" element={<ReturnApi/>} />
-                <Route path="/search" element={<Search/>} />
-                <Route path="/verify-otp" element={<VerifyOtp/>} />
-                <Route path="/cart" element={<Cart />} />
+                <Route index element={<Navigate to="/home" />} />
+                <Route path="/home" element={<Page />} />
+                <Route path="/exchange-history" element={<ExchangeHistory />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/product/:id" element={<Product />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/return-api" element={<ReturnApi />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/verify-otp" element={<VerifyOtp />} />
 
-                <Route path="/inventory" element={<ProtectedRoute><Inventory/></ProtectedRoute>} />
+                <Route path="/notification" element={<ProtectedRoute><Notification /></ProtectedRoute>} />
+                <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+                <Route path="/inventory" element={<ProtectedRoute><Inventory /></ProtectedRoute>} />
                 <Route path="/uploadProduct" element={<ProtectedRoute><UploadProduct /></ProtectedRoute>} />
 
                 <Route path="/admin" element={<AdminRoute><Admin/></AdminRoute>} />
             </Route>
 
-            <Route path="*" element={<p className="text-center font-bold text-4xl">This page is not available :(</p>}/>
+            <Route path="*" element={<p className="text-center font-bold text-4xl">This page is not available :(</p>} />
         </Routes>
     </>
 }
