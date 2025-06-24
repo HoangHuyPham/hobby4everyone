@@ -100,7 +100,7 @@ const Notification = () => {
             {notifications.map((n) => (
               <li
                 key={n.id}
-                className={`p-4 rounded shadow ${n.isRead ? "bg-gray-100" : "bg-white border-l-4 border-blue-500"
+                className={`p-4 rounded shadow ${n.read ? "bg-gray-100" : "bg-white border-l-4 border-blue-500"
                   }`}
               >
                 <h2 className="text-lg font-bold">{n.title}</h2>

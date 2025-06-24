@@ -39,6 +39,7 @@ const resources = {
       warehouse: "Kho",
       help: "Trợ giúp",
       wishlist: "Danh sách yêu thích",
+      revenueBarChar: "Biểu đồ doanh thu",
     },
   },
   en: {
@@ -77,6 +78,7 @@ const resources = {
       warehouse: "Warehouse",
       help: "Help",
       wishlist: "Wishlist",
+      revenueBarChar: "Revenue",
     },
   },
 };

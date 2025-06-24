@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
-// import { useSearchParams } from "next/navigation";
 import { FaHeart, FaRegComment } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
-import Header from "@layouts/navigation/Header";
-import Footer from "@layouts/navigation/Footer";
 import { PiShareFat } from "react-icons/pi";
 import { TbArrowsExchange } from "react-icons/tb";
 import { useNavigate, useParams } from "react-router-dom";
-// import { useRouter } from "next/navigation";
-// import formatDate from "@/app/utils/formatDate";
 
 interface ImageDTO {
   imageId: string;
@@ -101,14 +96,12 @@ const SkeletonPost = () => (
 );
 
 const SearchPage: React.FC = () => {
-  // const searchParams = useSearchParams();
   const searchParams = useParams();
   const keyword = searchParams["keyword"] || "";
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc"); // Mặc định sắp xếp gần đây nhất
-  // const router = useRouter();
   const navigate = useNavigate();
 
   useEffect(() => {

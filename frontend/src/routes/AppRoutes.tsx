@@ -13,6 +13,7 @@ import VerifyOtp from "@/pages/VerifyOtp"
 import Admin from "@/components/Admin/Admin.tsx";
 import AdminRoute from "@/routes/AdminRoute.tsx";
 import Cart from "@/pages/Cart"
+import RevenueStatistic from "@/pages/RevenueStatistic"
 import Notification from "@/pages/Notification"
 
 export const AppRoutes: React.FC = () => {
@@ -26,9 +27,9 @@ export const AppRoutes: React.FC = () => {
                 <Route path="/product/:id" element={<Product />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/return-api/:status" element={<ReturnApi />} />
-                <Route path="/search" element={<Search />} />
+                <Route path="/search/:keyword" element={<Search />} />
                 <Route path="/verify-otp" element={<VerifyOtp />} />
-
+                <Route path="/statistics/revenue" element={<RevenueStatistic />} />
                 <Route path="/notification" element={<ProtectedRoute><Notification /></ProtectedRoute>} />
                 <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
                 <Route path="/inventory" element={<ProtectedRoute><Inventory /></ProtectedRoute>} />

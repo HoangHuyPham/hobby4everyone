@@ -104,7 +104,7 @@ const Cart = () => {
       } else {
         return item
       }
-    }).filter(v => v.model.quantity > 0)
+    }).filter(v => v.quantity > 0)
 
     setCart(prev => {
       if (!prev) return prev;

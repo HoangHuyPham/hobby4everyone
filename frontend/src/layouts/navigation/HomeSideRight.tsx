@@ -60,6 +60,11 @@ const HomeSideRight = () => {
                   <div className="my-5">{t("yourStore")}</div>
                 </Link>
                 <Link 
+                to="/statistics/revenue"
+                className="hover:underline">
+                  <div className="my-5">{t("revenueBarChar")}</div>
+                </Link>
+                <Link 
                 // href="/exchange-history"
                 to="/exchange-history"
                 >

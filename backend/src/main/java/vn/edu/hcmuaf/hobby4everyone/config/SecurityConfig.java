@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.hobby4everyone.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.config.Customizer;
 import vn.edu.hcmuaf.hobby4everyone.security.CustomAuthenticationProvider;
 import vn.edu.hcmuaf.hobby4everyone.security.JWTFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
@@ -36,6 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/exchange/vnp-return").permitAll()
                         .requestMatchers("/api/posts/getModelIdFromPost/*").permitAll()
                         .requestMatchers(
+                                "/api/statistics/**",
                                 "/api/models/**",
                                 "/api/user/**",
                                 "/api/posts/**",
